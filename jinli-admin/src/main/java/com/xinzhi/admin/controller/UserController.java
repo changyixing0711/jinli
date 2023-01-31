@@ -33,6 +33,7 @@ public class UserController {
     public RespBean login(String userName, String password, HttpSession session) {
         User user = userService.login(userName, password);
         session.setAttribute("user", user);
+        System.out.println(user);
         return RespBean.success("用户登陆成功!");
     }
 
