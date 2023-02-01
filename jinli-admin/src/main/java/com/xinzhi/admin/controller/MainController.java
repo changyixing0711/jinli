@@ -37,11 +37,13 @@ public class MainController {
 
     /**
      * 系统退出
-     * @return
+     * @return TODO 原生退出登陆
      */
-    @RequestMapping("signout")
-    public String signout(HttpSession session){
-        session.removeAttribute("user");
-    return "redirect:index";
-    }
+//    @RequestMapping("signout")
+//    public String signout(HttpSession session){
+//        session.removeAttribute("user");
+//    return "redirect:index";
+//    }
+
+
 }

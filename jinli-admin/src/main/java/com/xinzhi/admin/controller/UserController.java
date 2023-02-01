@@ -5,13 +5,17 @@ import com.xinzhi.admin.exceptions.ParamsException;
 import com.xinzhi.admin.model.RespBean;
 import com.xinzhi.admin.pojo.User;
 import com.xinzhi.admin.service.IUserService;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+
+import java.security.Principal;
 
 /**
  * <p>
@@ -27,15 +31,14 @@ public class UserController {
 
     @Resource
     private IUserService userService;
-
-    @RequestMapping("login")
-    @ResponseBody
-    public RespBean login(String userName, String password, HttpSession session) {
-        User user = userService.login(userName, password);
-        session.setAttribute("user", user);
-        System.out.println(user);
-        return RespBean.success("用户登陆成功!");
-    }
+    //TODO 未引入框架前的登陆
+//    @RequestMapping("login")
+//    @ResponseBody
+//    public RespBean login(String userName, String password, HttpSession session) {
+//        User user = userService.login(userName, password);
+//        session.setAttribute("user", user);
+//        return RespBean.success("用户登陆成功!");
+//    }
 
     /**
      * 用户信息设置页面
@@ -43,10 +46,9 @@ public class UserController {
      * @return
      */
     @RequestMapping("setting")
-    public String setting(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        userService.getById(user.getId());
-        session.setAttribute("user", userService.getById(user.getId()));
+    public String setting(Principal principal, Model model) {
+       User user= userService.findUserByUserName(principal.getName());
+        model.addAttribute("user",user);
         return "user/setting";
     }
 
@@ -76,7 +78,7 @@ public class UserController {
     /**
      * 用户密码修改
      *
-     * @param session
+     * @param principal       security的缓存
      * @param oldPassword     旧密码
      * @param newPassword     新密码
      * @param confirmPassword 确认密码
@@ -84,9 +86,8 @@ public class UserController {
      */
     @RequestMapping("updateUserPassword")
     @ResponseBody
-    public RespBean updateUserPassword(HttpSession session, String oldPassword, String newPassword, String confirmPassword) {
-        User user = (User) session.getAttribute("user");
-        userService.updateUserPassword(user.getUserName(), oldPassword, newPassword, confirmPassword);
+    public RespBean updateUserPassword(Principal principal, String oldPassword, String newPassword, String confirmPassword) {
+        userService.updateUserPassword(principal.getName(), oldPassword, newPassword, confirmPassword);
         return RespBean.success("密码修改成功");
     }
 }

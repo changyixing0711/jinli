@@ -13,12 +13,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserService extends IService<User> {
     /**
-     * 用户登陆方法
+     * 用户登陆方法 //TODO 未上框架前的登陆方法
      * @param userName 用户名
      * @param password 密码
      * @return
      */
-    User login(String userName, String password);
+//    User login(String userName, String password);
 
     /**
      * 根据用户名查询用户记录
