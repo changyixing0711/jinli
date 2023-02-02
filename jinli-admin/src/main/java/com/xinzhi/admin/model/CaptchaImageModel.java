@@ -11,6 +11,10 @@ public class CaptchaImageModel {
         this.code=code;
         this.expireTime=LocalDateTime.now().plusSeconds(expireAfterSeconds);
     }
+    //验证码是否失效
+    public boolean isExpried() {
+        return LocalDateTime.now().isAfter(expireTime);
+    }
 
     public String getCode(){return code;}
 }

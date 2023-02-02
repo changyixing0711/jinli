@@ -1,9 +1,9 @@
 package com.xinzhi.admin.config.security;
 
+import com.xinzhi.admin.filters.CaptchaCodeFilter;
 import com.xinzhi.admin.pojo.User;
 import com.xinzhi.admin.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,8 +16,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -33,6 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     private JxcLogouSuccessHandler logouSuccessHandler;
+
+    @Resource
+    private CaptchaCodeFilter captchaCodeFilter;
+
+    @Resource
+    private DataSource dataSource;
     /**
      * 放行静态资源
      * @param web
@@ -47,6 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //禁用csrf
         http.csrf().disable()
+                //.addFilterBefore(captchaCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(captchaCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 //允许iframe 页面嵌套
         .headers().frameOptions().disable()
                 .and()
@@ -63,9 +75,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessHandler(logouSuccessHandler)
                 .and()
+                .rememberMe()
+                .rememberMeParameter("rememberMe")
+                //保存在浏览器的cookie的名称，如果不设置默认也是remember-me
+                .rememberMeCookieName("remember-me-cookie")
+                //设置token的有效时间，即多长时间可以免除重复登陆，单位是秒
+                .tokenValiditySeconds(7 * 24 * 60 * 60)
+                //自定义
+                .tokenRepository(persistentTokenRepository())
+                .and()
                 .authorizeRequests().antMatchers("/index","/login","/image").permitAll()
                 .anyRequest().authenticated();
     }
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository=new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+        return tokenRepository;
+    }
+
     @Bean
     public UserDetailsService userDetailsService(){
         return new UserDetailsService() {
