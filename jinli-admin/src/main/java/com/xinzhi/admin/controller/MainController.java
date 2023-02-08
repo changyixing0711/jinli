@@ -10,7 +10,7 @@ public class MainController {
 
     /**
      * 系统登陆页面
-     * @return
+     * @return 登陆页面
      */
     @RequestMapping("index")
     public String index(){
@@ -19,7 +19,7 @@ public class MainController {
 
     /**
      * 系统主页面
-     * @return
+     * @return 主页面
      */
     @RequestMapping("main")
     public String main(){
@@ -28,7 +28,7 @@ public class MainController {
 
     /**
      * 系统欢迎页
-     * @return
+     * @return 欢迎页
      */
     @RequestMapping("welcome")
     public String welcome(){

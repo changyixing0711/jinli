@@ -33,24 +33,45 @@ public class User implements Serializable , UserDetails {
 
     @ApiModelProperty(value = "主键id")
     @TableId(value = "id", type = IdType.AUTO)
+    /**
+     * 主键id
+     */
     private Integer id;
 
     @ApiModelProperty(value = "备注名")
+    /**
+     * 备注名
+     */
     private String bz;
 
     @ApiModelProperty(value = "密码")
+    /**
+     * 密码
+     */
     private String password;
 
     @ApiModelProperty(value = "真实姓名")
+    /**
+     * 真实姓名
+     */
     private String trueName;
 
     @ApiModelProperty(value = "用户名")
+    /**
+     * 用户名
+     */
     private String userName;
 
     @ApiModelProperty(value = "备注")
+    /**
+     * 备注
+     */
     private String remarks;
 
     @ApiModelProperty(value = "是否删除")
+    /**
+     * 是否删除
+     */
     private Integer isDel;
 
     @TableField(exist = false)

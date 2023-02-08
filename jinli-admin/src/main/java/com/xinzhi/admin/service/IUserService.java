@@ -52,4 +52,8 @@ public interface IUserService extends IService<User> {
     void updateUser(User user);
 
     void deleteUser(Integer[] ids);
+
+    User findUserById(Integer id);
+
+    void reset(Integer id);
 }

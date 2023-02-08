@@ -197,4 +197,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         AssertUtil.isTrue(!(this.updateBatchById(users)),"用户记录删除失败!!");
     }
+
+    @Override
+    public User findUserById(Integer id) {
+        return this.baseMapper.selectOne(new QueryWrapper<User>().eq("id",id));
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    public void reset(Integer id) {
+        User user=null;
+        user=this.findUserById(id);
+        user.setPassword(passwordEncoder.encode("123"));
+        AssertUtil.isTrue(!(this.updateById(user)),"用户密码重置失败!!!!");
+    }
+
+
 }

@@ -1,9 +1,12 @@
 package com.xinzhi.admin.config.security;
 
+import com.xinzhi.admin.config.ClassPathTldsLoader;
 import com.xinzhi.admin.filters.CaptchaCodeFilter;
 import com.xinzhi.admin.pojo.User;
+import com.xinzhi.admin.service.IRbacService;
 import com.xinzhi.admin.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,6 +14,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +26,8 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -43,6 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     private DataSource dataSource;
+
+    @Resource
+    private IRbacService rbacService;
     /**
      * 放行静态资源
      * @param web
@@ -100,6 +109,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 User userDetails = iUserService.findUserByUserName(username);
+                /**
+                 * 1.查询用户对应的角色
+                 * 2.根据用户扮演的角色去查询角色拥有的权限记录
+                 */
+                List<String> roleNames=rbacService.findRolesByUserName(username);
+                List<String> authorities=rbacService.findAuthoritiesByRoleName(roleNames);
+                roleNames = roleNames.stream().map(role->"ROLE_"+role).collect(Collectors.toList());
+                authorities.addAll(roleNames);
+                userDetails.setAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList(String.join(",",authorities)));
                 return userDetails;
             }
         };
@@ -112,5 +130,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(encoder());
+    }
+    @Bean
+    @ConditionalOnMissingBean(ClassPathTldsLoader.class)
+    public ClassPathTldsLoader classPathTldsLoader(){
+        return new ClassPathTldsLoader();
     }
 }
