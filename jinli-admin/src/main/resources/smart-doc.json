@@ -1,0 +1,12 @@
+{
+  "serverUrl": "http://152.136.17.91",
+  "isStrict": false,
+  "allInOne": true,
+  "outPath": "D://md2",
+  "coverOld": true,
+  "packageFilters": "",
+  "md5EncryptedHtmlName": false,
+  "projectName": "锦鲤管理系统",
+  "skipTransientField": true
+
+}
