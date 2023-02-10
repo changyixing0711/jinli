@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //禁用csrf
         http.csrf().disable()
                 //.addFilterBefore(captchaCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(captchaCodeFilter, UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(captchaCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 //允许iframe 页面嵌套
         .headers().frameOptions().disable()
                 .and()
@@ -93,7 +93,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //自定义
                 .tokenRepository(persistentTokenRepository())
                 .and()
-                .authorizeRequests().antMatchers("/index","/login","/image").permitAll()
+                //.authorizeRequests().antMatchers("/index","/login","/image").permitAll()
+                .authorizeRequests().antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
     }
     @Bean
