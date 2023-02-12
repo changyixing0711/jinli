@@ -87,13 +87,13 @@ public class User implements Serializable , UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
-    }
+        return userName;    }
 
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
 
     @Override
     public boolean isAccountNonLocked() {

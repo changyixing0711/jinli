@@ -49,26 +49,26 @@ public class CaptchaCodeFilter extends OncePerRequestFilter {
 
     //验证码校验方法
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
-        HttpSession session = request.getRequest().getSession();
-        //获取请求中参数值
-        String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(),"captchaCode");
-
-        if (StringUtils.isEmpty(codeInRequest)){
-            throw new SessionAuthenticationException("验证码不能为空");
-        }
-        CaptchaImageModel codeInSession = (CaptchaImageModel) session.getAttribute("captcha_key");
-
-        if (Objects.isNull(codeInSession)){
-            throw new SessionAuthenticationException("验证码不存在");
-        }
-
-        if (codeInSession.isExpried()){
-            throw new SessionAuthenticationException("验证码已过期");
-        }
-
-        if (!StringUtils.equals(codeInSession.getCode(),codeInRequest)){
-            throw new SessionAuthenticationException("验证码不匹配");
-        }
+//        HttpSession session = request.getRequest().getSession();
+//        //获取请求中参数值
+//        String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(),"captchaCode");
+//
+////        if (StringUtils.isEmpty(codeInRequest)){
+////            throw new SessionAuthenticationException("验证码不能为空");
+////        }
+//        CaptchaImageModel codeInSession = (CaptchaImageModel) session.getAttribute("captcha_key");
+//
+//        if (Objects.isNull(codeInSession)){
+//            throw new SessionAuthenticationException("验证码不存在");
+//        }
+//
+//        if (codeInSession.isExpried()){
+//            throw new SessionAuthenticationException("验证码已过期");
+//        }
+//
+//        if (!StringUtils.equals(codeInSession.getCode(),codeInRequest)){
+//            throw new SessionAuthenticationException("验证码不匹配");
+//        }
     }
 
 }
