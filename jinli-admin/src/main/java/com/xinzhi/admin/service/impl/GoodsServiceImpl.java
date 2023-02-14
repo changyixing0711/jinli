@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +32,7 @@ import java.util.Map;
 public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements IGoodsService {
     @Resource
     private IGoodsTypeService goodsTypeService;
+
 
 
     @Override
@@ -137,4 +139,10 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         temp.setInventoryQuantity(0);
         AssertUtil.isTrue(!(this.updateById(temp)),"商品删除失败!");
     }
+
+    @Override
+    public Goods getGoodsInfoById(Integer gid) {
+        return  this.baseMapper.getGoodsInfoById(gid);
+    }
+
 }

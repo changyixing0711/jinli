@@ -29,4 +29,7 @@ public interface IGoodsService extends IService<Goods> {
     void updateStock(Goods goods);
 
     void deleteStock(Integer id);
+
+    Goods getGoodsInfoById(Integer gid);
+
 }

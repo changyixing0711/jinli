@@ -1,5 +1,6 @@
 package com.xinzhi.admin.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -72,4 +73,16 @@ public class Goods implements Serializable {
     private Integer isDel;
 
 
+    @ApiModelProperty(value = "是否删除")
+    @TableField(exist = false)
+    private String unitName;
+
+    @ApiModelProperty(value = "是否删除")
+    @TableField(exist = false)
+    private String typeName;
+
+
+    @ApiModelProperty(value = "销售总数")
+    @TableField(exist = false)
+    private Integer saleTotal;
 }
