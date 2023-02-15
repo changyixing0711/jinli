@@ -46,6 +46,9 @@
 		<@security.authorize access="hasAnyAuthority('101006')">
 			<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 		</@security.authorize>
+
+		<a style="background-color: #01AAED" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="res" id="cz">重置</a>
+
 	</script>
 </form>
 <script type="text/javascript" src="${ctx.contextPath}/js/user/user.js"></script>

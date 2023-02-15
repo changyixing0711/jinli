@@ -46,113 +46,171 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll layui-left-menu">
             <ul class="layui-nav layui-nav-tree layui-left-nav-tree layui-this" id="currency">
-
+                <@security.authorize access="hasAnyAuthority('30')">
                 <li class="layui-nav-item">
                     <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-gears"></i><span class="layui-left-nav"> 进货管理</span> <span class="layui-nav-more"></span></a>
                     <dl class="layui-nav-child">
+                        <@security.authorize access="hasAnyAuthority('3010')">
                         <dd>
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11" data-tab="purchase/index" target="_self"><i class="fa fa-user"></i><span class="layui-left-nav"> 进货入库</span></a>
                         </dd>
-
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('3020')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-12" data-tab="return/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 退货出库</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('3030')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="purchase/searchPage" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 进货单据查询</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('3040')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="return/searchPage" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 退货单据查询</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('3050')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="common/toGoodsStockPage" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 当前库存查询</span></a>
                         </dd>
+                        </@security.authorize>
                     </dl>
                 </li>
+                </@security.authorize>
+                <@security.authorize access="hasAnyAuthority('40')">
                 <li class="layui-nav-item">
                     <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-gears"></i><span class="layui-left-nav"> 销售管理</span> <span class="layui-nav-more"></span></a>
                     <dl class="layui-nav-child">
+                        <@security.authorize access="hasAnyAuthority('4010')">
                         <dd>
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11" data-tab="sale/index" target="_self"><i class="fa fa-user"></i><span class="layui-left-nav"> 销售出库</span></a>
                         </dd>
-
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('4020')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-12" data-tab="customerReturn/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 客户退货</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('4030')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="sale/searchPage" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 销售单据查询</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('4040')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="customerReturn/searchPage" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 客户退货查询</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('4050')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="common/toGoodsStockPage" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 当前库存查询</span></a>
                         </dd>
+                        </@security.authorize>
                     </dl>
                 </li>
+                </@security.authorize>
+                <@security.authorize access="hasAnyAuthority('50')">
                 <li class="layui-nav-item">
                     <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-gears"></i><span class="layui-left-nav"> 库存管理</span> <span class="layui-nav-more"></span></a>
                     <dl class="layui-nav-child">
+                        <@security.authorize access="hasAnyAuthority('5040')">
                         <dd>
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11" data-tab="damage/index" target="_self"><i class="fa fa-user"></i><span class="layui-left-nav"> 商品报损</span></a>
                         </dd>
-
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('5050')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-12" data-tab="overflow/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 商品报溢</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('5020')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="common/alarmPage" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 库存报警</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('5010')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="common/toDamageOverflowSearchPage" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 报损报溢查询</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('5030')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="common/toGoodsStockPage" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 当前库存查询</span></a>
                         </dd>
+                        </@security.authorize>
                     </dl>
                 </li>
+                </@security.authorize>
+                <@security.authorize access="hasAnyAuthority('60')">
                 <li class="layui-nav-item">
                     <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-gears"></i><span class="layui-left-nav"> 统计报表</span> <span class="layui-nav-more"></span></a>
                     <dl class="layui-nav-child">
+                        <@security.authorize access="hasAnyAuthority('6010')">
                         <dd>
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11" data-tab="report/countSupplier" target="_self"><i class="fa fa-user"></i><span class="layui-left-nav"> 供应商统计</span></a>
                         </dd>
-
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('6020')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-12" data-tab="report/countCustomer" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 客户统计</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('6030')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="report/countPurchase" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 商品采购统计</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('6040')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="report/countSale" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 商品销售统计</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('6050')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="report/countDaySale" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 按日统计</span></a>
+                        </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('6060')">
+                        <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="report/countMonthSale" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 按月统计</span></a>
                         </dd>
+                        </@security.authorize>
                     </dl>
                 </li>
+                </@security.authorize>
+                <@security.authorize access="hasAnyAuthority('20')">
                 <li class="layui-nav-item">
                     <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-gears"></i><span class="layui-left-nav"> 基础资料</span> <span class="layui-nav-more"></span></a>
                     <dl class="layui-nav-child">
+                        <@security.authorize access="hasAnyAuthority('2010')">
                         <dd>
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-11" data-tab="supplier/index" target="_self"><i class="fa fa-user"></i><span class="layui-left-nav"> 供应商管理</span></a>
                         </dd>
-
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('2050')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-12" data-tab="customer/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 客户管理</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('2020')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="goods/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 商品管理</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('2030')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="goodsType/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 商品分类管理</span></a>
                         </dd>
+                        </@security.authorize>
+                        <@security.authorize access="hasAnyAuthority('2040')">
                         <dd class="">
                             <a href="javascript:;" class="layui-menu-tips" data-type="tabAdd" data-tab-mpi="m-p-i-13" data-tab="stock/index" target="_self"><i class="fa fa-tachometer"></i><span class="layui-left-nav"> 期初库存</span></a>
                         </dd>
+                        </@security.authorize>
                     </dl>
                 </li>
+                </@security.authorize>
                 <@security.authorize access="hasAnyAuthority('10')">
                     <li class="layui-nav-item">
                         <a href="javascript:;" class="layui-menu-tips"><i class="fa fa-gears"></i><span class="layui-left-nav"> 系统设置</span> <span class="layui-nav-more"></span></a>

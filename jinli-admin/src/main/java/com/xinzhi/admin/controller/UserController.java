@@ -8,10 +8,12 @@ import com.xinzhi.admin.query.UserQuery;
 import com.xinzhi.admin.service.IUserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
 import javax.annotation.Resource;
@@ -27,6 +29,7 @@ import java.util.Map;
  * @author 小常
  * @since 2023-01-31
  */
+@CrossOrigin(origins = "192.168.134.2:8989")
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -60,7 +63,7 @@ public class UserController {
      */
     @RequestMapping("updateUserInfo")
     @ResponseBody
-    @PreAuthorize("hasAnyAuthority('1010')")
+    @PreAuthorize("hasAnyAuthority('101007')")
     public RespBean updateUserInfo(User user) {
         userService.updateUserInfo(user);
         return RespBean.success("用户信息更新成功");

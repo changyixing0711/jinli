@@ -1,6 +1,4 @@
 /**
- * date:2019/08/16
- * author:Mr.Chung
  * description:此处放layui自定义扩展
  */
 

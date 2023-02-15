@@ -72,8 +72,36 @@ layui.use(['table','layer',"form"],function(){
                         }
                 });
             })
+        }else if (layEvent === "res"){
+            layer.confirm('确定重置当前用户密码？', {icon: 3, title: "用户管理"}, function (index) {
+                $.post(ctx+"/user/reset",{id:obj.data.id},function (data) {
+                    if(data.code==200){
+                        layer.msg("操作成功！");
+                        tableIns.reload();
+                    }else{
+                        layer.msg(data.message, {icon: 5});
+                    }
+                });
+            })
         }
+
     });
+    $.ajax({
+        type:"post",
+        url:ctx+"/user/reset",
+        data:id,
+        dataType:"json",
+        success:function (data) {
+            if(data.code==200){
+                tableIns.reload();
+            }else{
+                layer.msg(data.message, {icon: 5});
+            }
+        }
+    })
+
+
+
 
 
     // 打开添加用户页面

@@ -17,6 +17,7 @@
 				<div class="layui-card-body">
 					<form class="layui-form" >
 						<blockquote class="layui-elem-quote quoteBox">
+							<@security.authorize access="hasAnyAuthority('204001')">
 							<form class="layui-form">
 								<div class="layui-inline">
 									<div class="layui-input-inline">
@@ -28,12 +29,15 @@
 												class="layui-icon">&#xe615;</i> 搜索</a>
 								</div>
 							</form>
+							</@security.authorize>
 						</blockquote>
 						<table id="goodsList01" class="layui-table"  lay-filter="goods01"></table>
 
 
 						<script id="goodsListBar01" type="text/html">
+							<@security.authorize access="hasAnyAuthority('20')">
 							<a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">添加商品到仓库</a>
+							</@security.authorize>
 						</script>
 					</form>
 				</div>
@@ -52,8 +56,12 @@
 
 						<#--操作-->
 						<script id="goodsListBar02" type="text/html">
+							<@security.authorize access="hasAnyAuthority('204001')">
 							<a class="layui-btn layui-btn-xs" id="edit" lay-event="edit">修改库存或成本</a>
+							</@security.authorize>
+							<@security.authorize access="hasAnyAuthority('204002')">
 							<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+							</@security.authorize>
 						</script>
 					</form>
 
