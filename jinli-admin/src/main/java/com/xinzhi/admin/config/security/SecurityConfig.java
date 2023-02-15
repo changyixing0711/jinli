@@ -59,18 +59,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-       web.ignoring().antMatchers("/css/**","/error/**","/images/**","/js/**","/lib/**");
+       web.ignoring().antMatchers("/css/**","/error/**","/images/**","/js/**","/lib/**","/error/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //禁用csrf
         http.csrf().disable()
-                //.addFilterBefore(captchaCodeFilter, UsernamePasswordAuthenticationFilter.class)
-//                .addFilterBefore(captchaCodeFilter, UsernamePasswordAuthenticationFilter.class)
+             .addFilterBefore(captchaCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 //允许iframe 页面嵌套
-        .headers().frameOptions().disable()
-                .and()
+                .headers().frameOptions().disable()
+             .and()
                 .formLogin()
                 .usernameParameter("userName")
                 .passwordParameter("password")
@@ -78,12 +77,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .successHandler(jxcAuthenticationSuccessHandler)
                 .failureHandler(jxcAuthenticationFailedHandle)
-                .and()
+             .and()
                 .logout()
                 .logoutUrl("/signout")
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessHandler(logouSuccessHandler)
-                .and()
+             .and()
                 .rememberMe()
                 .rememberMeParameter("rememberMe")
                 //保存在浏览器的cookie的名称，如果不设置默认也是remember-me
@@ -92,11 +91,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(7 * 24 * 60 * 60)
                 //自定义
                 .tokenRepository(persistentTokenRepository())
-                .and()
-                //.authorizeRequests().antMatchers("/index","/login","/image").permitAll()
-                .authorizeRequests().antMatchers("/**").permitAll()
+             .and()
+                .authorizeRequests().antMatchers("/index","/login","/image").permitAll()
+                //.authorizeRequests().antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
     }
+
+    /**
+     * 配置从数据库中获取token
+     * @return
+     */
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository=new JdbcTokenRepositoryImpl();
@@ -132,6 +136,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(encoder());
     }
+
+    /**
+     * 加载 ClassPathTldsLoader
+     * @return
+     */
     @Bean
     @ConditionalOnMissingBean(ClassPathTldsLoader.class)
     public ClassPathTldsLoader classPathTldsLoader(){
