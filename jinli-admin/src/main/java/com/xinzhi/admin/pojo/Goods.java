@@ -63,6 +63,7 @@ public class Goods implements Serializable {
     @ApiModelProperty(value = "商品类别")
     private Integer typeId;
 
+    //0 初始化状态  1 期初库存入仓库  2 有进货或者销售单据
     @ApiModelProperty(value = "商品状态")
     private Integer state;
 
@@ -71,7 +72,6 @@ public class Goods implements Serializable {
 
     @ApiModelProperty(value = "是否删除")
     private Integer isDel;
-
 
     @ApiModelProperty(value = "是否删除")
     @TableField(exist = false)
@@ -85,4 +85,5 @@ public class Goods implements Serializable {
     @ApiModelProperty(value = "销售总数")
     @TableField(exist = false)
     private Integer saleTotal;
+
 }

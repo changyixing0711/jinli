@@ -1,9 +1,15 @@
 package com.xinzhi.admin.controller;
 
 
+import com.xinzhi.admin.query.PurchaseListGoodsQuery;
+import com.xinzhi.admin.service.IPurchaseListGoodsService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,5 +22,12 @@ import org.springframework.stereotype.Controller;
 @Controller
 @RequestMapping("/purchase-list-goods")
 public class PurchaseListGoodsController {
+    @Resource
+    private IPurchaseListGoodsService purchaseListGoodsService;
 
+    @RequestMapping("list")
+    @ResponseBody
+    public Map<String,Object> purchaseListGoodsList(PurchaseListGoodsQuery purchaseListGoodsQuery){
+        return purchaseListGoodsService.purchaseListGoodsList(purchaseListGoodsQuery);
+    }
 }

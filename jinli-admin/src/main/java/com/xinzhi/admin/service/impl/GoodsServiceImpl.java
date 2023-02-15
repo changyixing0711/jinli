@@ -6,9 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xinzhi.admin.pojo.Goods;
 import com.xinzhi.admin.dao.GoodsMapper;
 import com.xinzhi.admin.query.GoodsQuery;
-import com.xinzhi.admin.service.IGoodsService;
+import com.xinzhi.admin.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.xinzhi.admin.service.IGoodsTypeService;
 import com.xinzhi.admin.utils.PageResultUtil;
 import com.xinzhi.admin.utils.AssertUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +32,11 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Resource
     private IGoodsTypeService goodsTypeService;
 
+    @Resource
+    private ISaleListGoodsService saleListGoodsService;
+
+    @Resource
+    private ICustomerReturnListGoodsService customerReturnListGoodsService;
 
 
     @Override
@@ -143,6 +147,25 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Override
     public Goods getGoodsInfoById(Integer gid) {
         return  this.baseMapper.getGoodsInfoById(gid);
+    }
+
+
+    @Override
+    public Map<String, Object> stockList(GoodsQuery goodsQuery) {
+        IPage<Goods> page = new Page<Goods>(goodsQuery.getPage(),goodsQuery.getLimit());
+        if(null !=goodsQuery.getTypeId()){
+            goodsQuery.setTypeIds(goodsTypeService.queryAllSubTypeIdsByTypeId(goodsQuery.getTypeId()));
+        }
+        page =  this.baseMapper.queryGoodsByParams(page,goodsQuery);
+
+        List<Goods> goodsList = page.getRecords();
+        goodsList.forEach(g->{
+            g.setSaleTotal(
+                    saleListGoodsService.getSaleTotalByGoodsId(g.getId())-
+                            customerReturnListGoodsService.getReturnTotalByGoodsId(g.getId())
+            );
+        });
+        return PageResultUtil.getResult(page.getTotal(),goodsList);
     }
 
 }

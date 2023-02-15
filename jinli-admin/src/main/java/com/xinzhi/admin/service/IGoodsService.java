@@ -32,4 +32,6 @@ public interface IGoodsService extends IService<Goods> {
 
     Goods getGoodsInfoById(Integer gid);
 
+    Map<String, Object> stockList(GoodsQuery goodsQuery);
+
 }

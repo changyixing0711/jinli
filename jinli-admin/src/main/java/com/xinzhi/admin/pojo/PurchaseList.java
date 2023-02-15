@@ -1,14 +1,18 @@
 package com.xinzhi.admin.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
+
 import java.io.Serializable;
+import java.util.Date;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -37,7 +41,8 @@ public class PurchaseList implements Serializable {
     private Float amountPayable;
 
     @ApiModelProperty(value = "进货日期")
-    private LocalDateTime purchaseDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date purchaseDate;
 
     @ApiModelProperty(value = "备注")
     private String remarks;
@@ -54,5 +59,10 @@ public class PurchaseList implements Serializable {
     @ApiModelProperty(value = "操作用户")
     private Integer userId;
 
+    @TableField(exist = false)
+    private String userName;
+
+    @TableField(exist = false)
+    private String supplierName;
 
 }

@@ -66,5 +66,43 @@ public class CommonController {
         return "common/stock_search";
     }
 
+    @RequestMapping("stockList")
+    @ResponseBody
+    public Map<String,Object> stockLick(GoodsQuery goodsQuery){
+        return goodsService.stockList(goodsQuery);
+    }
+
+
+    /**
+     * 商品报损|报溢查询页
+     * @return
+     */
+    @RequestMapping("toDamageOverflowSearchPage")
+    public String toDamageOverflowSearchPage(){
+        return "common/damage_overflow_search";
+    }
+
+
+    /**
+     * 库存报警页
+     * @return
+     */
+    @RequestMapping("alarmPage")
+    public String alarmPage(){
+        return "common/alarm";
+    }
+
+
+    /**
+     * 库存报警查询接口
+     * @param goodsQuery
+     * @return
+     */
+    @RequestMapping("listAlarm")
+    @ResponseBody
+    public Map<String,Object> listAlarm(GoodsQuery goodsQuery){
+        goodsQuery.setType(3);
+        return goodsService.goodsList(goodsQuery);
+    }
 
 }
