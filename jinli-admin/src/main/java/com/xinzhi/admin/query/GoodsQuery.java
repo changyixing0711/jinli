@@ -6,9 +6,8 @@ import java.util.List;
 
 /**
  *
- *
- * @author
- * @version 1.0
+ * @author 小常
+ * @since 2023-02-03
  */
 @Data
 public class GoodsQuery extends BaseQuery{

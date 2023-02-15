@@ -41,7 +41,10 @@ public class PurchaseListController {
 
     @Resource
     private IUserService userService;
-
+    /**
+     * 进货入库主页
+     * @return
+     */
     @RequestMapping("index")
     public String index(Model model){
         //获取进货单号
@@ -88,5 +91,18 @@ public class PurchaseListController {
         return RespBean.success("删除成功");
     }
 
+    @RequestMapping("update")
+    @ResponseBody
+    public RespBean update(Integer id){
+        purchaseListService.updatePurchaseListState(id);
+        return RespBean.success("结算成功!");
+    }
 
+
+
+    @RequestMapping("countPurchase")
+    @ResponseBody
+    public Map<String,Object> countPurchase(PurchaseListQuery purchaseListQuery){
+        return purchaseListService.countPurchase(purchaseListQuery);
+    }
 }

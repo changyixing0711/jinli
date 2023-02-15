@@ -20,7 +20,7 @@ import java.util.Map;
  * @since 2023-02-09
  */
 @Controller
-@RequestMapping("/purchase-list-goods")
+@RequestMapping("/purchaseListGoods")
 public class PurchaseListGoodsController {
     @Resource
     private IPurchaseListGoodsService purchaseListGoodsService;

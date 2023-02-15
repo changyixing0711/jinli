@@ -2,11 +2,12 @@ package com.xinzhi.admin.query;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
- * 乐字节  踏实教育 用心服务
  *
- * @author 乐字节--老李
- * @version 1.0
+ * @author 小常
+ * @since 2023-02-03
  */
 @Data
 public class PurchaseListQuery  extends BaseQuery{
@@ -14,6 +15,13 @@ public class PurchaseListQuery  extends BaseQuery{
     private String purchaseNumber;
     private Integer supplierId;
     private Integer state;
+
+
     private String startDate;
     private String endDate;
+    private String goodsName;
+    private Integer typeId;
+    private List<Integer> typeIds;
+
+    public Integer index;
 }
