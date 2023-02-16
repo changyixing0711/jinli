@@ -59,6 +59,13 @@ public class OverflowListController {
         return RespBean.success("商品报溢入库成功!");
     }
 
+    @RequestMapping("delete")
+    @ResponseBody
+    public RespBean deleteGoods(Integer id){
+        overflowListService.deleteGoods(id);
+        return RespBean.success("报溢单记录删除成功");
+    }
+
 
     @RequestMapping("list")
     @ResponseBody

@@ -22,4 +22,6 @@ public interface IDamageListService extends IService<DamageList> {
     void saveDamageList(DamageList damageList, List<DamageListGoods> plgList);
 
     Map<String, Object> damageList(DamageListQuery damageListQuery);
+
+    void deleteGoods(Integer id);
 }

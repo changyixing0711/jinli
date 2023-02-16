@@ -7,6 +7,7 @@ import com.xinzhi.admin.pojo.DamageList;
 import com.xinzhi.admin.dao.DamageListMapper;
 import com.xinzhi.admin.pojo.DamageListGoods;
 import com.xinzhi.admin.pojo.Goods;
+import com.xinzhi.admin.pojo.OverflowListGoods;
 import com.xinzhi.admin.query.DamageListQuery;
 import com.xinzhi.admin.service.IDamageListGoodsService;
 import com.xinzhi.admin.service.IDamageListService;
@@ -76,5 +77,11 @@ public class DamageListServiceImpl extends ServiceImpl<DamageListMapper, DamageL
         IPage<DamageList> page = new Page<DamageList>(damageListQuery.getPage(),damageListQuery.getLimit());
         page =  this.baseMapper.damageList(page,damageListQuery);
         return PageResultUtil.getResult(page.getTotal(),page.getRecords());
+    }
+
+    @Override
+    public void deleteGoods(Integer id) {
+        AssertUtil.isTrue(!(damageListGoodsService.remove(new QueryWrapper<DamageListGoods>().eq("damage_list_id",id))),"记录删除失败");
+        AssertUtil.isTrue(!(this.removeById(id)),"记录删除失败");
     }
 }

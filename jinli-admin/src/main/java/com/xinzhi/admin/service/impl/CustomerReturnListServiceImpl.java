@@ -86,6 +86,8 @@ public class CustomerReturnListServiceImpl extends ServiceImpl<CustomerReturnLis
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void deleteCustomerList(Integer id) {
+        CustomerReturnList customerReturnList = this.getById(id);
+        AssertUtil.isTrue(customerReturnList.getState()==0,"订单未付款无法删除");
         AssertUtil.isTrue(!(customerReturnListGoodsService.remove(new QueryWrapper<CustomerReturnListGoods>().eq("customer_return_list_id",id))),
                 "记录删除失败!");
         AssertUtil.isTrue(!(this.removeById(id)),"记录删除失败!");

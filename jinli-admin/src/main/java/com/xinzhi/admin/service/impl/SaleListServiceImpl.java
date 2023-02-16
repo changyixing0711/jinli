@@ -135,6 +135,8 @@ public class SaleListServiceImpl extends ServiceImpl<SaleListMapper, SaleList> i
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void deleteSaleList(Integer id) {
+        SaleList saleList = this.getById(id);
+        AssertUtil.isTrue(saleList.getState()==0,"订单未付款无法删除");
        AssertUtil.isTrue(!(saleListGoodsService.remove(new QueryWrapper<SaleListGoods>().eq("Sale_list_id",id))),"记录删除失败");
        AssertUtil.isTrue(!(this.removeById(id)),"记录删除失败");
     }

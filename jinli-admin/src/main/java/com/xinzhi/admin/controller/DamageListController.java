@@ -58,6 +58,12 @@ public class DamageListController {
         damageListService.saveDamageList(damageList,plgList);
         return RespBean.success("商品报损出库成功!");
     }
+    @RequestMapping("delete")
+    @ResponseBody
+    public RespBean deleteGoods(Integer id){
+        damageListService.deleteGoods(id);
+        return RespBean.success("报损单记录删除成功");
+    }
 
 
     @RequestMapping("list")

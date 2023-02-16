@@ -7,6 +7,7 @@ import com.xinzhi.admin.pojo.Goods;
 import com.xinzhi.admin.pojo.OverflowList;
 import com.xinzhi.admin.dao.OverflowListMapper;
 import com.xinzhi.admin.pojo.OverflowListGoods;
+import com.xinzhi.admin.pojo.SaleListGoods;
 import com.xinzhi.admin.query.OverFlowListQuery;
 import com.xinzhi.admin.service.IGoodsService;
 import com.xinzhi.admin.service.IOverflowListGoodsService;
@@ -76,5 +77,11 @@ public class OverflowListServiceImpl extends ServiceImpl<OverflowListMapper, Ove
         IPage<OverflowList> page = new Page<OverflowList>(overFlowListQuery.getPage(),overFlowListQuery.getLimit());
         page =  this.baseMapper.overFlowList(page,overFlowListQuery);
         return PageResultUtil.getResult(page.getTotal(),page.getRecords());
+    }
+
+    @Override
+    public void deleteGoods(Integer id) {
+        AssertUtil.isTrue(!(overflowListGoodsService.remove(new QueryWrapper<OverflowListGoods>().eq("overflow_list_id",id))),"记录删除失败");
+        AssertUtil.isTrue(!(this.removeById(id)),"记录删除失败");
     }
 }

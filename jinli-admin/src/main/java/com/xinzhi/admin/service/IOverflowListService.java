@@ -22,4 +22,6 @@ public interface IOverflowListService extends IService<OverflowList> {
     void saveOverflowList(OverflowList overflowList, List<OverflowListGoods> plgList);
 
     Map<String, Object> overFlowList(OverFlowListQuery overFlowListQuery);
+
+    void deleteGoods(Integer id);
 }
