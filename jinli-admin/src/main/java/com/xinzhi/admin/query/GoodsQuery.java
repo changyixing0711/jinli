@@ -20,6 +20,7 @@ public class GoodsQuery extends BaseQuery{
     /**
      * 1 库存量=0
      * 2 库存量>0
+     * 3 库存量小于库存下线
      */
     private Integer type;
 
