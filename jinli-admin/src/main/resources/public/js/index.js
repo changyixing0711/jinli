@@ -6,7 +6,7 @@ layui.use(['form','jquery','jquery_cookie'], function () {
 
 
     $("#refreshCaptcha").click(function (){
-        $(this).attr("src", "/image?"+Math.floor(Math.random() * 100));
+        $(this).attr("src", "/image?");
     })
 
 
@@ -38,9 +38,13 @@ layui.use(['form','jquery','jquery_cookie'], function () {
             dataType:"json",
             success:function (data) {
                 if(data.code==200){
-                    layer.msg('登录成功', function () {
+
+                    layer.msg("登录成功");
+                    function fun(){
                         window.location.href=ctx+"/main";
-                    });
+                    }
+                    setTimeout(fun,1000);
+
                 }else{
                     $("#refreshCaptcha").attr("src", "/image?"+Math.floor(Math.random() * 100));
                     layer.msg(data.message);
