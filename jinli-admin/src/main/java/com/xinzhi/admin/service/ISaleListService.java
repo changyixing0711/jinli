@@ -17,6 +17,7 @@ import java.util.Map;
  * @since 2023-02-15
  */
 public interface ISaleListService extends IService<SaleList> {
+
     String getNextSaleNumber();
 
     void saveSaleList(SaleList saleList, List<SaleListGoods> slgList);
@@ -30,6 +31,4 @@ public interface ISaleListService extends IService<SaleList> {
     List<Map<String, Object>> countDaySale(String begin, String end);
 
     List<Map<String, Object>> countMonthSale(String begin, String end);
-
-    void deleteSaleList(Integer id);
 }

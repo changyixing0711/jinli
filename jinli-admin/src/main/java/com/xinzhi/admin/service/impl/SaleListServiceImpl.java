@@ -67,8 +67,6 @@ public class SaleListServiceImpl extends ServiceImpl<SaleListMapper, SaleList> i
 
     @Override
     public void saveSaleList(SaleList saleList, List<SaleListGoods> slgList) {
-        AssertUtil.isTrue(null==saleList.getSaleDate(),"日期不能为空");
-        AssertUtil.isTrue(null==saleList.getCustomerName(),"客户不能为空");
         AssertUtil.isTrue(!(this.save(saleList)),"记录添加失败!");
         SaleList temp = this.getOne(new QueryWrapper<SaleList>().eq("sale_number",saleList.getSaleNumber()));
         slgList.forEach(slg->{
@@ -130,14 +128,5 @@ public class SaleListServiceImpl extends ServiceImpl<SaleListMapper, SaleList> i
     @Override
     public List<Map<String, Object>> countMonthSale(String begin, String end) {
         return this.baseMapper.countMonthSale(begin,end);
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
-    public void deleteSaleList(Integer id) {
-        SaleList saleList = this.getById(id);
-        AssertUtil.isTrue(saleList.getState()==0,"订单未付款无法删除");
-       AssertUtil.isTrue(!(saleListGoodsService.remove(new QueryWrapper<SaleListGoods>().eq("Sale_list_id",id))),"记录删除失败");
-       AssertUtil.isTrue(!(this.removeById(id)),"记录删除失败");
     }
 }

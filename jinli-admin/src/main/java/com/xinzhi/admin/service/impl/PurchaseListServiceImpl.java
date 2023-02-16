@@ -37,7 +37,6 @@ import java.util.Map;
 @Service
 public class PurchaseListServiceImpl extends ServiceImpl<PurchaseListMapper, PurchaseList> implements IPurchaseListService {
 
-
     @Resource
     private IPurchaseListGoodsService purchaseListGoodsService;
 
@@ -46,6 +45,7 @@ public class PurchaseListServiceImpl extends ServiceImpl<PurchaseListMapper, Pur
 
     @Resource
     private IGoodsTypeService goodsTypeService;
+
 
     @Override
     public String getNextPurchaseNumber() {
@@ -70,8 +70,6 @@ public class PurchaseListServiceImpl extends ServiceImpl<PurchaseListMapper, Pur
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void savePurchaseList(PurchaseList purchaseList, List<PurchaseListGoods> plgList) {
-        AssertUtil.isTrue(null==purchaseList.getPurchaseDate(),"日期不能为空");
-        AssertUtil.isTrue(null==purchaseList.getSupplierName(),"供应商不能为空");
         AssertUtil.isTrue(!(this.save(purchaseList)),"记录添加失败!");
         PurchaseList temp = this.getOne(new QueryWrapper<PurchaseList>().eq("purchase_number",purchaseList.getPurchaseNumber()));
         plgList.forEach(plg->{
@@ -82,8 +80,11 @@ public class PurchaseListServiceImpl extends ServiceImpl<PurchaseListMapper, Pur
             goods.setLastPurchasingPrice(plg.getPrice());
             goods.setState(2);
             goodsService.updateById(goods);
+
         });
         AssertUtil.isTrue(!(purchaseListGoodsService.saveBatch(plgList)),"记录添加失败!");
+
+
     }
 
     @Override
@@ -104,7 +105,10 @@ public class PurchaseListServiceImpl extends ServiceImpl<PurchaseListMapper, Pur
         AssertUtil.isTrue(!(purchaseListGoodsService.remove(new QueryWrapper<PurchaseListGoods>().eq("purchase_list_id",id))),
                 "记录删除失败!");
         AssertUtil.isTrue(!(this.removeById(id)),"记录删除失败!");
+
+
     }
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void updatePurchaseListState(Integer pid) {

@@ -36,6 +36,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/sale")
 public class SaleListController {
+
     @Resource
     private ISaleListService saleListService;
 
@@ -62,14 +63,6 @@ public class SaleListController {
         List<SaleListGoods> slgList = gson.fromJson(goodsJson,new TypeToken<List<SaleListGoods>>(){}.getType());
         saleListService.saveSaleList(saleList,slgList);
         return RespBean.success("商品销售出库成功!");
-    }
-
-
-    @RequestMapping("delete")
-    @ResponseBody
-    public RespBean delete(Integer id){
-        saleListService.deleteSaleList(id);
-        return RespBean.success("删除成功");
     }
 
     /**

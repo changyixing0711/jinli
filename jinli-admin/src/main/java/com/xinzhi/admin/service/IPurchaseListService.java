@@ -18,6 +18,7 @@ import java.util.Map;
  */
 public interface IPurchaseListService extends IService<PurchaseList> {
 
+
     String getNextPurchaseNumber();
 
     void savePurchaseList(PurchaseList purchaseList, List<PurchaseListGoods> plgList);

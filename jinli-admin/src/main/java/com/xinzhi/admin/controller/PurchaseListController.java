@@ -1,8 +1,8 @@
 package com.xinzhi.admin.controller;
 
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.xinzhi.admin.model.RespBean;
 import com.xinzhi.admin.pojo.PurchaseList;
 import com.xinzhi.admin.pojo.PurchaseListGoods;
@@ -32,31 +32,29 @@ import java.util.Map;
 @Controller
 @RequestMapping("/purchase")
 public class PurchaseListController {
-    /**
-     *
-     * @return
-     */
+
     @Resource
     private IPurchaseListService purchaseListService;
 
     @Resource
     private IUserService userService;
+
     /**
      * 进货入库主页
      * @return
      */
     @RequestMapping("index")
     public String index(Model model){
-        //获取进货单号
-        String purchaseNumber=purchaseListService.getNextPurchaseNumber();
+        // 获取进货单号
+        String purchaseNumber = purchaseListService.getNextPurchaseNumber();
         model.addAttribute("purchaseNumber",purchaseNumber);
         return "purchase/purchase";
     }
 
+
     @RequestMapping("save")
     @ResponseBody
     public RespBean save(PurchaseList purchaseList, String goodsJson, Principal principal){
-
         String userName = principal.getName();
         purchaseList.setUserId(userService.findUserByUserName(userName).getId());
         Gson gson = new Gson();
@@ -64,6 +62,7 @@ public class PurchaseListController {
         purchaseListService.savePurchaseList(purchaseList,plgList);
         return RespBean.success("商品进货入库成功!");
     }
+
     /**
      * 进货单查询页
      * @return
@@ -91,6 +90,8 @@ public class PurchaseListController {
         purchaseListService.deletePurchaseList(id);
         return RespBean.success("删除成功");
     }
+
+
 
     @RequestMapping("update")
     @ResponseBody
