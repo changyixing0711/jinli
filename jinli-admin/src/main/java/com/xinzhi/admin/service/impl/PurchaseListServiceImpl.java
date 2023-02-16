@@ -70,6 +70,8 @@ public class PurchaseListServiceImpl extends ServiceImpl<PurchaseListMapper, Pur
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void savePurchaseList(PurchaseList purchaseList, List<PurchaseListGoods> plgList) {
+        AssertUtil.isTrue(null==purchaseList.getPurchaseDate(),"日期不能为空");
+        AssertUtil.isTrue(null==purchaseList.getSupplierName(),"供应商不能为空");
         AssertUtil.isTrue(!(this.save(purchaseList)),"记录添加失败!");
         PurchaseList temp = this.getOne(new QueryWrapper<PurchaseList>().eq("purchase_number",purchaseList.getPurchaseNumber()));
         plgList.forEach(plg->{

@@ -64,6 +64,14 @@ public class SaleListController {
         return RespBean.success("商品销售出库成功!");
     }
 
+
+    @RequestMapping("delete")
+    @ResponseBody
+    public RespBean delete(Integer id){
+        saleListService.deleteSaleList(id);
+        return RespBean.success("删除成功");
+    }
+
     /**
      * 销售单查询页
      * @return

@@ -85,6 +85,7 @@ public class ReturnListServiceImpl extends ServiceImpl<ReturnListMapper, ReturnL
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void deleteReturnList(Integer id) {
         /**
          * 1.退货单商品记录删除

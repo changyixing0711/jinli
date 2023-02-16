@@ -22,4 +22,6 @@ public interface ICustomerReturnListService extends IService<CustomerReturnList>
     void saveCustomerReturnList(CustomerReturnList customerReturnList, List<CustomerReturnListGoods> slgList);
 
     Map<String, Object> customerReturnList(CustomerReturnListQuery customerReturnListQuery);
+
+    void deleteCustomerList(Integer id);
 }

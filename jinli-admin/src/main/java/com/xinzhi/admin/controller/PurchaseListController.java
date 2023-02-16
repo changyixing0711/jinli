@@ -56,6 +56,7 @@ public class PurchaseListController {
     @RequestMapping("save")
     @ResponseBody
     public RespBean save(PurchaseList purchaseList, String goodsJson, Principal principal){
+
         String userName = principal.getName();
         purchaseList.setUserId(userService.findUserByUserName(userName).getId());
         Gson gson = new Gson();

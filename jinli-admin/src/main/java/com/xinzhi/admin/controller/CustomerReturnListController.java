@@ -59,6 +59,13 @@ public class CustomerReturnListController {
         return RespBean.success("商品退货入库成功!");
     }
 
+    @RequestMapping("delete")
+    @ResponseBody
+    public RespBean delete(Integer id){
+        customerReturnListService.deleteCustomerList(id);
+        return RespBean.success("删除成功");
+    }
+
 
     /**
      * 退货单查询页

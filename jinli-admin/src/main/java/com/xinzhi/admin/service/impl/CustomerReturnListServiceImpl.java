@@ -7,6 +7,7 @@ import com.xinzhi.admin.pojo.CustomerReturnList;
 import com.xinzhi.admin.dao.CustomerReturnListMapper;
 import com.xinzhi.admin.pojo.CustomerReturnListGoods;
 import com.xinzhi.admin.pojo.Goods;
+import com.xinzhi.admin.pojo.ReturnListGoods;
 import com.xinzhi.admin.query.CustomerReturnListQuery;
 import com.xinzhi.admin.service.ICustomerReturnListGoodsService;
 import com.xinzhi.admin.service.ICustomerReturnListService;
@@ -17,6 +18,8 @@ import com.xinzhi.admin.utils.DateUtil;
 import com.xinzhi.admin.utils.PageResultUtil;
 import com.xinzhi.admin.utils.StringUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -59,6 +62,7 @@ public class CustomerReturnListServiceImpl extends ServiceImpl<CustomerReturnLis
 
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void saveCustomerReturnList(CustomerReturnList customerReturnList, List<CustomerReturnListGoods> slgList) {
         AssertUtil.isTrue(!(this.save(customerReturnList)),"记录添加失败!");
         CustomerReturnList temp = this.getOne(new QueryWrapper<CustomerReturnList>().eq("customer_return_number",customerReturnList.getCustomerReturnNumber()));
@@ -77,5 +81,13 @@ public class CustomerReturnListServiceImpl extends ServiceImpl<CustomerReturnLis
         IPage<CustomerReturnList> page = new Page<CustomerReturnList>(customerReturnListQuery.getPage(),customerReturnListQuery.getLimit());
         page =  this.baseMapper.customerReturnList(page,customerReturnListQuery);
         return PageResultUtil.getResult(page.getTotal(),page.getRecords());
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    public void deleteCustomerList(Integer id) {
+        AssertUtil.isTrue(!(customerReturnListGoodsService.remove(new QueryWrapper<CustomerReturnListGoods>().eq("customer_return_list_id",id))),
+                "记录删除失败!");
+        AssertUtil.isTrue(!(this.removeById(id)),"记录删除失败!");
     }
 }
