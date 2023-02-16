@@ -129,4 +129,12 @@ public class SaleListServiceImpl extends ServiceImpl<SaleListMapper, SaleList> i
     public List<Map<String, Object>> countMonthSale(String begin, String end) {
         return this.baseMapper.countMonthSale(begin,end);
     }
+
+    @Override
+    public void deleteCustomerList(Integer id) {
+        SaleList saleList = this.getById(id);
+        AssertUtil.isTrue(saleList.getState()==0,"订单未付款无法删除");
+        AssertUtil.isTrue(!(saleListGoodsService.remove(new QueryWrapper<SaleListGoods>().eq("sale_list_id",id))),"记录删除失败");
+        AssertUtil.isTrue(!(this.removeById(id)),"记录删除失败");
+    }
 }

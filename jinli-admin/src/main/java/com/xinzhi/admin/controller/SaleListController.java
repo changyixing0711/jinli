@@ -180,4 +180,11 @@ public class SaleListController {
         result.put("msg","");
         return result;
     }
+
+    @RequestMapping("delete")
+    @ResponseBody
+    public RespBean delete(Integer id){
+        saleListService.deleteCustomerList(id);
+        return RespBean.success("删除成功");
+    }
 }
