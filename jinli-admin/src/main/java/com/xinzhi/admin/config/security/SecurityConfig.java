@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //禁用csrf
         http.csrf().disable()
-             .addFilterBefore(captchaCodeFilter, UsernamePasswordAuthenticationFilter.class)
+             //.addFilterBefore(captchaCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 //允许iframe 页面嵌套
                 .headers().frameOptions().disable()
              .and()

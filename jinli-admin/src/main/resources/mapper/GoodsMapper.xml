@@ -43,7 +43,7 @@
                     and inventory_quantity  &gt; 0
                 </if>
                 <if test="goodsQuery.type ==3 ">
-                    and inventory_quantity  &gt; &lt; min_num
+                    and inventory_quantity  &lt; min_num
                 </if>
             </if>
 

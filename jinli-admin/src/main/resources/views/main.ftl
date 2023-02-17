@@ -4,11 +4,25 @@
     <meta charset="utf-8">
     <title>锦鲤管理系统</title>
     <#include "common.ftl">
+    <style>
+        .layui-layout-admin .layui-header{
+
+            background-color:rgb(36,51,70)!important;
+
+        }
+    </style>
+
+
 </head>
 <body class="layui-layout-body layuimini-all">
-<div class="layui-layout layui-layout-admin">
-    <div class="layui-header header">
-        <div class="layui-logo" align="left">
+<script>
+    $("dd").click(function () {
+        $("dd").css("backgroundColor","rgb(36,51,70)")
+    })
+</script>
+<div class="layui-layout layui-layout-admin"style="background: black"!important>
+    <div class="layui-header header"style="background: black">
+        <div class="layui-logo" align="left" >
             <a href="" >
                 <img src="images/logo.png" alt="logo" >
                 <h1 style="margin: 0 0 0 3px">锦鲤管理系统</h1>

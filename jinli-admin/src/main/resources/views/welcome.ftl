@@ -3,15 +3,17 @@
 <head>
   <#include "common.ftl">
 </head>
+<style>
+
+</style>
 
 
 <body class="childrenBody">
 
-<div class="layui-tab-item layui-show">
-    <div class="layui-carousel" id="test10" align="center">
-        <div carousel-item="">
-            <div><img src="${ctx.contextPath}/images/index.png"></div>
-        </div>
+<div class="layui-carousel" id="test2" style="margin-top: 15px;">
+    <div style="width: 1800px;height: 900px;" carousel-item="">
+        <div style="width: 1800px;height: 900px;"><img src="images/bjtp.png" style="width: 1800px;height: 900px; background-size: 100%"></div>
+        <div style="width: 1800px;height: 900px;"><img src="images/beijing.jpg" style="width: 1800px;height: 900px; background-size: 100%"></div>
     </div>
 </div>
 
@@ -78,6 +80,8 @@
             options[this.name] = value;
             ins3.reload(options);
         });
+        $("div button").remove()
+        $("div ul").remove()
 
         //其它示例
         $('.demoTest .layui-btn').on('click', function(){
